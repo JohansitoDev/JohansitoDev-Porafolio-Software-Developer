@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johan Mancebo | Portafolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+   <script src="logica.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <style>
+        .glass-card {
+            background: rgba(18, 18, 18, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        section, header {
+            scroll-margin-top: 90px;
+        }
+        .tab-btn.active {
+            background-color: rgb(245, 158, 11);
+            color: #000;
+            border-color: rgb(245, 158, 11);
+        }
+        .modal-active {
+            overflow: hidden;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Bloqueamos la selección de texto en el visor para evitar copias */
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* Regla de impresión: si intentan forzar la impresión, la pantalla saldrá en blanco */
+        @media print {
+            body { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-[#040402] text-gray-300 font-sans antialiased selection:bg-amber-500 selection:text-black relative min-h-screen overflow-x-hidden pt-20" oncontextmenu="return false;">
+
+    <canvas id="meteorBackground" class="fixed inset-0 w-full h-full -z-10 pointer-events-none"></canvas>
+
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-zinc-800/50">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+            <a href="#inicio" class="text-sm font-bold text-white hover:text-amber-400 transition-colors tracking-tight">JM</a>
+            <div class="flex items-center gap-4 text-xs sm:text-sm font-medium">
+                <a href="#inicio" class="text-gray-400 hover:text-white transition-colors">Inicio</a>
+                <a href="#experiencia" class="text-gray-400 hover:text-white transition-colors">Experiencia</a>
+                <a href="#libros" class="text-gray-400 hover:text-white transition-colors">Libros</a>
+                <a href="#galeria" class="text-gray-400 hover:text-white transition-colors">Galería</a>
+                <a href="#sobre-mi" class="text-gray-400 hover:text-white transition-colors">Sobre mí</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12 relative z-10">
+
+        <header id="inicio" class="mb-12 sm:mb-16">
+            <div class="flex items-center gap-4 mb-5">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20 italic tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    Transformando líneas de código en arte seguro
+                </span>
+            </div>
+            
+            <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-6 mb-6">
+                <div>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-2">Hey, soy Johan Mancebo</h1>
+                    <p class="text-xs sm:text-sm text-amber-400/90 font-medium flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                        Estudiante de Ingeniería de Sistemas en la Universidad O&M
+                    </p>
+                </div>
+                <img src="https://github.com/JohansitoDev.png" alt="Johan Mancebo" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.2)] object-cover bg-zinc-900 flex-shrink-0" />
+            </div>
+            
+            <p class="text-base sm:text-lg leading-relaxed text-gray-400 mb-6">
+                <strong class="text-white font-semibold">Desarrollador de software, Analista de seguridad de aplicaciones móviles (Android/APK)</strong>, miembro del <strong class="text-amber-400 font-semibold">Equipo Azul Junior</strong> y Diseñador de interfaz de usuario.
+            </p>
+
+            <div class="flex flex-wrap gap-3 text-xs sm:text-sm">
+                <a href="https://www.instagram.com/mancebo_johan/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900/80 border border-zinc-800 hover:border-amber-500/50 hover:text-white transition-all duration-300">Instagram</a>
+                <a href="https://www.youtube.com/@JohanCiberRD" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900/80 border border-zinc-800 hover:border-amber-500/50 hover:text-white transition-all duration-300">YouTube</a>
+                <a href="https://github.com/JohansitoDev" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900/80 border border-zinc-800 hover:border-amber-500/50 hover:text-white transition-all duration-300">GitHub</a>
+            </div>
+        </header>
+
+        <section id="experiencia" class="mb-12 sm:mb-16">
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-8 flex items-center gap-2">Trayectoria laboral y formación</h2>
+            <div class="relative border-l border-zinc-800 pl-5 sm:pl-6 ml-2 space-y-10">
+                <div class="relative group">
+                    <div class="absolute -left-[37px] sm:-left-[39px] top-1 w-5 h-5 rounded-full bg-amber-500/20 border border-amber-500/60 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <svg class="w-3 h-3 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
+                        <h3 class="text-lg sm:text-xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">Paso por la OGTIC</h3>
+                        <span class="text-xs sm:text-sm text-zinc-500">Historial Técnico</span>
+                    </div>
+                    <h4 class="text-xs sm:text-sm font-semibold text-white mb-3">Oficina Gubernamental de Tecnologías de la Información y la Comunicación</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Colaboración, capacitación o gestión técnica en el núcleo tecnológico del estado dominicano, adquiriendo experiencia directa sobre los flujos normativos, infraestructura gubernamental y el despliegue de soluciones tecnológicas institucionales.</p>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -left-[33px] sm:-left-[35px] top-1.5 w-3 h-3 rounded-full bg-zinc-700 border-2 border-[#040402]"></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
+                        <h3 class="text-lg sm:text-xl font-bold text-zinc-400 group-hover:text-zinc-300 transition-colors">Analista de Seguridad Mobile & Dev</h3>
+                        <span class="text-xs sm:text-sm text-zinc-500">Actualidad</span>
+                    </div>
+                    <h4 class="text-xs sm:text-sm font-semibold text-white mb-3">Freelance / Proyectos Independientes</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Análisis e ingeniería inversa de archivos APK para la detección de vulnerabilidades y auditorías preventivas (Blue Team). Diseño de interfaces optimizadas.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="libros" class="mb-12 sm:mb-16 relative">
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white">Mis Libros de Tecnología</h2>
+                    <p class="text-xs text-zinc-400 mt-1">Biblioteca digital y manuales de ingeniería de mi autoría.</p>
+                </div>
+                <div class="flex gap-1.5">
+                    <button onclick="scrollCarousel(-1)" class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-amber-400 hover:border-amber-500/40 transition-colors cursor-pointer text-xs font-bold">←</button>
+                    <button onclick="scrollCarousel(1)" class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-amber-400 hover:border-amber-500/40 transition-colors cursor-pointer text-xs font-bold">→</button>
+                </div>
+            </div>
+            
+            <div id="bookCarousel" class="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-2 scroll-smooth">
+                
+                <div class="w-[280px] sm:w-[320px] shrink-0 snap-start glass-card border border-zinc-800/60 rounded-xl p-4 flex flex-col justify-between hover:border-amber-500/20 transition-all">
+                    <div>
+                        <div class="w-full h-44 bg-gradient-to-br from-zinc-800 to-zinc-950 border border-amber-500/20 rounded-lg shadow-inner flex flex-col justify-between p-3 relative overflow-hidden mb-3">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.15),transparent)]"></div>
+                            <span class="text-[9px] font-mono text-amber-500 uppercase tracking-widest block">Edición 2026</span>
+                            <h3 class="text-base font-black text-white leading-tight uppercase tracking-tight">Git<br><span class="text-amber-400">Esencial</span></h3>
+                            <span class="text-[8px] text-zinc-500 font-mono block text-right">Johan Mancebo</span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">Gestión de Código</span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed line-clamp-3 mb-4">
+                            Guía práctica e intuitiva para dominar el flujo de trabajo, la arquitectura de Git y aprender sus comandos básicos del día a día.
+                        </p>
+                    </div>
+                    <button onclick="openSecureReader('git')" class="w-full text-center py-2 bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold rounded-lg transition-all cursor-pointer shadow-md">Leer obra</button>
+                </div>
+
+                <div class="w-[280px] sm:w-[320px] shrink-0 snap-start glass-card border border-zinc-800/60 rounded-xl p-4 flex flex-col justify-between hover:border-amber-500/20 transition-all">
+                    <div>
+                        <div class="w-full h-44 bg-gradient-to-br from-zinc-900 to-zinc-950 border border-red-500/20 rounded-lg shadow-inner flex flex-col justify-between p-3 relative overflow-hidden mb-3">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(239,68,68,0.1),transparent)]"></div>
+                            <span class="text-[9px] font-mono text-red-400 uppercase tracking-widest block">Blue Team Operative</span>
+                            <h3 class="text-base font-black text-white leading-tight uppercase tracking-tight">Ciberseguridad<br><span class="text-red-400">Defensiva</span></h3>
+                            <span class="text-[8px] text-zinc-500 font-mono block text-right">Johan Mancebo</span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20 font-mono">Sistemas Seguros</span>
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed line-clamp-3 mb-4">
+                            Manual de supervivencia, operaciones de seguridad en entornos SOC, telemetría proactiva y resistencia digital estratégica.
+                        </p>
+                    </div>
+                    <button onclick="openSecureReader('ciber')" class="w-full text-center py-2 bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold rounded-lg transition-all cursor-pointer shadow-md">Leer obra</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="galeria" class="mb-12 sm:mb-16">
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-4">Galería de proyectos generales tecnológicos</h2>
+            <p class="text-sm text-zinc-400 mb-6">Explora mis soluciones de software, arquitectura de sistemas y análisis defensivo:</p>
+            
+            <div class="flex flex-wrap gap-2 mb-8 text-xs font-mono">
+                <button onclick="filterProjects('all')" class="tab-btn active px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-gray-300 hover:border-amber-500 transition-all cursor-pointer">Todos</button>
+                <button onclick="filterProjects('ciberseguridad')" class="tab-btn px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-gray-300 hover:border-amber-500 transition-all cursor-pointer">Ciberseguridad</button>
+                <button onclick="filterProjects('backend')" class="tab-btn px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-gray-300 hover:border-amber-500 transition-all cursor-pointer">Backend</button>
+                <button onclick="filterProjects('frontend')" class="tab-btn px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-gray-300 hover:border-amber-500 transition-all cursor-pointer">Frontend</button>
+                <button onclick="filterProjects('movil')" class="tab-btn px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-gray-300 hover:border-amber-500 transition-all cursor-pointer">Móvil</button>
+                <button onclick="filterProjects('videojuego')" class="tab-btn px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-gray-300 hover:border-amber-500 transition-all cursor-pointer">Videojuego Web</button>
+                <button onclick="filterProjects('ar')" class="tab-btn px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-gray-300 hover:border-amber-500 transition-all cursor-pointer">AR Web</button>
+            </div>
+
+            <div id="projectContainer" class="space-y-8">
+                <article data-category="ciberseguridad" class="project-item glass-card border border-zinc-800/60 rounded-xl p-5 flex flex-col md:flex-row gap-5 transition-all hover:border-amber-500/30">
+                    <img src="https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=500&auto=format&fit=crop&q=80" alt="APK Vulnerability Lab" class="w-full md:w-44 h-40 object-cover rounded-xl border border-zinc-800/80 flex-shrink-0" />
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-wider text-red-400 font-mono block mb-1">Ciberseguridad / Blue Team</span>
+                            <h4 class="text-lg font-bold text-white mb-3">APK Vulnerability & Malware Lab</h4>
+                            <div class="space-y-2 text-xs text-gray-400 mb-4 leading-relaxed">
+                                <p><strong class="text-zinc-200">¿Qué hace?:</strong> Realiza descompilación, ingeniería inversa y análisis estático estructurado sobre binarios y paquetes APK de Android.</p>
+                                <p><strong class="text-zinc-200">¿Qué resuelve?:</strong> Automatiza la detección de credenciales quemadas en el código, debilidades críticas del estándar OWASP Mobile e inyección de código malicioso Smali antes del despliegue.</p>
+                                <p><strong class="text-zinc-200">Finalidad:</strong> Proveer un ecosistema controlado y preventivo para auditar el software móvil corporativo, protegiendo al usuario de fugas de información.</p>
+                            </div>
+                        </div>
+                        <button onclick="openModal('ciberseguridad')" class="w-full md:w-auto text-center px-4 py-2 bg-zinc-900 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold rounded-lg border border-zinc-800 hover:border-amber-500 transition-all cursor-pointer">Leer más</button>
+                    </div>
+                </article>
+
+                <article data-category="backend" class="project-item glass-card border border-zinc-800/60 rounded-xl p-5 flex flex-col md:flex-row gap-5 transition-all hover:border-amber-500/30">
+                    <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=500&auto=format&fit=crop&q=80" alt="Secure API Backend" class="w-full md:w-44 h-40 object-cover rounded-xl border border-zinc-800/80 flex-shrink-0" />
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-wider text-amber-400 font-mono block mb-1">Backend</span>
+                            <h4 class="text-lg font-bold text-white mb-3">Secure Auth & Log API Engine</h4>
+                            <div class="space-y-2 text-xs text-gray-400 mb-4 leading-relaxed">
+                                <p><strong class="text-zinc-200">¿Qué hace?:</strong> Gestiona el control de accesos mediante tokens cifrados avanzados (JWT), sanitización estricta de entradas y logs inmutables.</p>
+                                <p><strong class="text-zinc-200">¿Qué resuelve?:</strong> Detiene de forma preventiva intentos comunes de inyección de código (SQLi, NoSQLi) y ataques continuos de fuerza bruta.</p>
+                                <p><strong class="text-zinc-200">Finalidad:</strong> Servir como base estructural inquebrantable para soportar arquitecturas de datos y microservicios externos de manera confiable.</p>
+                            </div>
+                        </div>
+                        <button onclick="openModal('backend')" class="w-full md:w-auto text-center px-4 py-2 bg-zinc-900 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold rounded-lg border border-zinc-800 hover:border-amber-500 transition-all cursor-pointer">Leer más</button>
+                    </div>
+                </article>
+
+                <article data-category="frontend" class="project-item glass-card border border-zinc-800/60 rounded-xl p-5 flex flex-col md:flex-row gap-5 transition-all hover:border-amber-500/30">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=500&auto=format&fit=crop&q=80" alt="Frontend Interface Design" class="w-full md:w-44 h-40 object-cover rounded-xl border border-zinc-800/80 flex-shrink-0" />
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-wider text-cyan-400 font-mono block mb-1">Frontend Design</span>
+                            <h4 class="text-lg font-bold text-white mb-3">UI Custom Analytical Dashboard</h4>
+                            <div class="space-y-2 text-xs text-gray-400 mb-4 leading-relaxed">
+                                <p><strong class="text-zinc-200">¿Qué hace?:</strong> Renderiza flujos complejos de datos informativos en una interfaz minimalista, fluida y altamente responsiva empleando Tailwind CSS.</p>
+                                <p><strong class="text-zinc-200">¿Qué resuelve?:</strong> Elimina la fatiga visual del usuario y la carga innecesaria del DOM web al optimizar los recursos y componentes estáticos organizados.</p>
+                                <p><strong class="text-zinc-200">Finalidad:</strong> Garantizar una experiencia de navegación limpia e intuitiva, acortando la curva de aprendizaje de cualquier software empresarial.</p>
+                            </div>
+                        </div>
+                        <button onclick="openModal('frontend')" class="w-full md:w-auto text-center px-4 py-2 bg-zinc-900 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold rounded-lg border border-zinc-800 hover:border-amber-500 transition-all cursor-pointer">Leer más</button>
+                    </div>
+                </article>
+
+                <article data-category="movil" class="project-item glass-card border border-zinc-800/60 rounded-xl p-5 flex flex-col md:flex-row gap-5 transition-all hover:border-amber-500/30">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&auto=format&fit=crop&q=80" alt="Mobile Development" class="w-full md:w-44 h-40 object-cover rounded-xl border border-zinc-800/80 flex-shrink-0" />
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-wider text-green-400 font-mono block mb-1">Mobile</span>
+                            <h4 class="text-lg font-bold text-white mb-3">Reporta RD Engine Core</h4>
+                            <div class="space-y-2 text-xs text-gray-400 mb-4 leading-relaxed">
+                                <p><strong class="text-zinc-200">¿Qué hace?:</strong> Procesa reportes e incidencias de infraestructura urbana mapeando coordenadas de geolocalización precisas desde el celular.</p>
+                                <p><strong class="text-zinc-200">¿Qué resuelve?:</strong> Agiliza de forma drástica los canales burocráticos y lentos de reportes comunitarios tradicionales unificando los flujos.</p>
+                                <p><strong class="text-zinc-200">Finalidad:</strong> Conectar de manera directa las problemáticas de la ciudadanía con respuestas tecnológicas rápidas de un MVP eficiente.</p>
+                            </div>
+                        </div>
+                        <button onclick="openModal('movil')" class="w-full md:w-auto text-center px-4 py-2 bg-zinc-900 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold rounded-lg border border-zinc-800 hover:border-amber-500 transition-all cursor-pointer">Leer más</button>
+                    </div>
+                </article>
+
+                <article data-category="videojuego" class="project-item glass-card border border-zinc-800/60 rounded-xl p-5 flex flex-col md:flex-row gap-5 transition-all hover:border-amber-500/30">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=80" alt="Web Game Design" class="w-full md:w-44 h-40 object-cover rounded-xl border border-zinc-800/80 flex-shrink-0" />
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-wider text-purple-400 font-mono block mb-1">Videojuego Web</span>
+                            <h4 class="text-lg font-bold text-white mb-3">Canvas Retro RPG Core Engine</h4>
+                            <div class="space-y-2 text-xs text-gray-400 mb-4 leading-relaxed">
+                                <p><strong class="text-zinc-200">¿Qué hace?:</strong> Controla colisiones por celdas matemáticamente exactas, procesamiento de estados y dibujo nativo bidimensional a través del Canvas de HTML5.</p>
+                                <p><strong class="text-zinc-200">¿Qué resuelve?:</strong> Elimina la dependencia estricta de motores de software pesados de terceros o librerías que inflan el ancho de banda del navegador web.</p>
+                                <p><strong class="text-zinc-200">Finalidad:</strong> Estudiar e implementar algoritmos eficientes de renderizado gráfico de videojuegos clásicos optimizando la memoria RAM local.</p>
+                            </div>
+                        </div>
+                        <button onclick="openModal('videojuego')" class="w-full md:w-auto text-center px-4 py-2 bg-zinc-900 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold rounded-lg border border-zinc-800 hover:border-amber-500 transition-all cursor-pointer">Leer más</button>
+                    </div>
+                </article>
+
+                <article data-category="ar" class="project-item glass-card border border-zinc-800/60 rounded-xl p-5 flex flex-col md:flex-row gap-5 transition-all hover:border-amber-500/30">
+                    <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=500&auto=format&fit=crop&q=80" alt="Augmented Reality Web" class="w-full md:w-44 h-40 object-cover rounded-xl border border-zinc-800/80 flex-shrink-0" />
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-wider text-pink-400 font-mono block mb-1">AR Web Experimento</span>
+                            <h4 class="text-lg font-bold text-white mb-3">A-Frame Spatial AR Interactive Viewer</h4>
+                            <div class="space-y-2 text-xs text-gray-400 mb-4 leading-relaxed">
+                                <p><strong class="text-zinc-200">¿Qué hace?:</strong> Renderiza objetos tridimensionales interactivos superpuestos en el espacio físico real usando la cámara del teléfono mediante frameworks WebXR.</p>
+                                <p><strong class="text-zinc-200">¿Qué resuelve?:</strong> Evita la necesidad obligatoria de forzar al usuario a descargar aplicaciones nativas pesadas en tiendas externas para vivir experiencias AR.</p>
+                                <p><strong class="text-zinc-200">Finalidad:</strong> Explorar los límites actuales de la navegación web inmersiva de cara a soluciones interactivas futuras en navegadores modernos.</p>
+                            </div>
+                        </div>
+                        <button onclick="openModal('ar')" class="w-full md:w-auto text-center px-4 py-2 bg-zinc-900 hover:bg-amber-500 hover:text-black text-amber-400 text-xs font-bold rounded-lg border border-zinc-800 hover:border-amber-500 transition-all cursor-pointer">Leer más</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="sobre-mi" class="mb-12 sm:mb-16">
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-6">Sobre mí</h2>
+            <div class="glass-card border border-zinc-800/60 p-6 rounded-xl space-y-6">
+                <div class="text-gray-400 text-sm space-y-4 leading-relaxed">
+                    <p>Me llamo <strong class="text-white">Johan Mancebo</strong>. Mi pasión por la informática me ha impulsado a especializarme en dos worlds que se complementan a la perfección: el desarrollo de software seguro y el diseño de interfaces limpias.</p>
+                    <p>Como miembro en formación del <strong class="text-amber-400">Equipo Azul (Blue Team)</strong>, dedico tiempo a desglosar aplicaciones Android, entender su comportamiento interno (APKs) y asegurar que el desarrollo no contenga brechas críticas.</p>
+                </div>
+                <div class="flex justify-center pt-2">
+                    <img src="https://github.com/JohansitoDev.png" alt="Johan Mancebo Perfil" class="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-2 border-amber-500/50 shadow-[0_0_20px_rgba(245,158,11,0.25)] object-cover bg-zinc-900 filter contrast-105" />
+                </div>
+            </div>
+        </section>
+
+        <footer class="border-t border-zinc-900 pt-8 flex flex-col sm:flex-row justify-between items-center text-[11px] text-zinc-500 gap-3 text-center sm:text-left">
+            <div>© 2026 Johan Mancebo. Casi todos los derechos reservados.</div>
+            <div>Inspirado en midudev</div>
+        </footer>
+    </div>
+
+    <div id="projectModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-[#0b0b0a] border border-zinc-800 max-w-xl w-full max-h-[85vh] rounded-2xl overflow-y-auto shadow-2xl p-6 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white font-mono text-lg cursor-pointer">✕</button>
+            <div id="modalContent" class="space-y-6">
+                <div class="aspect-video w-full rounded-xl overflow-hidden bg-zinc-950 border border-zinc-800/80 relative">
+                    <iframe id="modalVideo" class="w-full h-full" src="" title="Demostración de Proyecto" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="flex justify-center pt-2">
+                    <img id="modalImg" src="" alt="Vista del Proyecto" class="w-32 h-32 object-cover rounded-xl border-2 border-amber-500/40 shadow-lg" />
+                </div>
+                <div class="text-center">
+                    <h3 id="modalTitle" class="text-xl font-bold text-white mb-1"></h3>
+                    <span id="modalCategory" class="text-xs font-mono text-amber-400 uppercase tracking-widest"></span>
+                </div>
+                <hr class="border-zinc-800" />
+                <div class="space-y-4 text-xs sm:text-sm">
+                    <div class="p-3 bg-zinc-900/50 rounded-xl border border-zinc-800/60 flex items-center justify-between">
+                        <span class="text-zinc-400 font-medium">Documento de Cierre Contractual:</span>
+                        <span class="px-2 py-0.5 rounded bg-green-500/10 text-green-400 border border-green-500/20 text-[10px] font-mono uppercase font-bold">Firmado y Validado</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-center">
+                        <a href="https://github.com/JohansitoDev" target="_blank" class="p-2 bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-800 rounded-lg text-xs font-medium transition-colors">📄 Documentación Técnica</a>
+                    </div>
+                    <div class="space-y-1.5">
+                        <h5 class="text-zinc-200 font-bold uppercase text-[11px] font-mono tracking-wider text-amber-500">I. Flujo de Desarrollo e Ingeniería</h5>
+                        <p id="modalTech" class="text-gray-400 leading-relaxed pl-2 border-l border-zinc-800"></p>
+                    </div>
+                    <div class="space-y-1.5">
+                        <h5 class="text-zinc-200 font-bold uppercase text-[11px] font-mono tracking-wider text-red-400">II. Auditoría AppSec & Operaciones Blue Team</h5>
+                        <p id="modalSec" class="text-gray-400 leading-relaxed pl-2 border-l border-zinc-800"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="secureReaderModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex-col">
+        <div class="bg-zinc-950 border-b border-zinc-800 px-6 py-4 flex items-center justify-between flex-shrink-0">
+            <div>
+                <h3 id="readerBookTitle" class="text-white font-bold text-sm sm:text-base"></h3>
+                <p class="text-[10px] text-zinc-500 font-mono">Modo de lectura seguro — Impresión y descarga deshabilitadas</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-800 text-xs text-zinc-400 font-mono">
+                    <button onclick="prevPage()" class="hover:text-amber-400 transition-colors font-bold cursor-pointer">◄</button>
+                    <span>Pág <span id="pageNum" class="text-white">0</span> / <span id="pageCount">0</span></span>
+                    <button onclick="nextPage()" class="hover:text-amber-400 transition-colors font-bold cursor-pointer">►</button>
+                </div>
+                <button onclick="closeSecureReader()" class="text-zinc-400 hover:text-white text-xl font-mono cursor-pointer transition-colors">✕</button>
+            </div>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto p-4 flex justify-center items-start bg-zinc-900/60 no-scrollbar no-select">
+            <div class="relative bg-zinc-950 shadow-2xl rounded-lg overflow-hidden border border-zinc-800/50">
+                <canvas id="pdfRenderCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+   
+</body>
+</html>
